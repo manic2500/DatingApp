@@ -1,0 +1,76 @@
+<div class="card bg-base-100 w-1/2 mx-auto flex flex-col p-6 rounded-lg shadow-lg">
+    <div class="card-title justify-center text-3xl text-primary">Sign up</div>
+    <div class="card-body w-full">
+
+        <!-- Step Progress Bar -->
+        <!-- <ul class="steps">
+            <li class="step step-primary">Credentials</li>
+            <li class="step">Profile</li> 
+        </ul> -->
+
+        <!-- Step 1: Credentials -->
+        <!-- This section would normally render only if currentStep() === 1 -->
+        <form class="flex flex-col gap-4 w-full steps" #registerForm="ngForm" (ngSubmit)="register()">
+            <input type="email" class="input input-bordered w-full" placeholder="Email" name="email"
+                [(ngModel)]="creds.email" />
+            <input type="text" class="input input-bordered w-full" placeholder="Display Name" name="displayName"
+                [(ngModel)]="creds.displayName" />
+            <input type="password" class="input input-bordered w-full" placeholder="Password" name="password"
+                [(ngModel)]="creds.password" />
+            <input type="password" class="input input-bordered w-full" placeholder="Confirm Password"
+                name="confirmPassword" />
+            <div class="flex items-center justify-end gap-3">
+                <button type="button" (click)="cancel()" class="btn">Cancel</button>
+                <button type="submit" class="btn btn-primary">Register</button>
+                <!-- Add 'disabled' attribute here if form is not valid -->
+            </div>
+        </form>
+
+        <!-- Step 2: Profile -->
+        <!-- This section would normally render only if currentStep() === 2 -->
+        <!-- <form class="flex flex-col w-full gap-4 steps mt-10">
+            <div class="flex items-center gap-4">
+                <div class="font-semibold">Gender:</div>
+                <label class="flex gap-3 items-center">
+                    <span>Male</span>
+                    <input type="radio" name="gender" value="male" class="radio radio-primary">
+                </label>
+                <label class="flex gap-3 items-center">
+                    <span>Female</span>
+                    <input type="radio" name="gender" value="female" class="radio radio-primary">
+                </label>
+            </div>
+
+            <div>
+                <label>Date of Birth</label>
+                <input type="date" class="input input-bordered w-full" name="dateOfBirth" />
+            </div>
+
+            <div>
+                <label>City</label>
+                <input type="text" class="input input-bordered w-full" name="city" />
+            </div>
+
+            <div>
+                <label>Country</label>
+                <input type="text" class="input input-bordered w-full" name="country" />
+            </div>
+
+            <div class="flex items-center justify-end gap-3">
+                <button type="button" class="btn">Back</button>
+                <button type="button" class="btn btn-primary">Register</button>
+            </div>
+        </form> -->
+
+    </div>
+
+    <!-- Validation Errors -->
+    <!-- Normally shown only if validationErrors().length > 0 -->
+    <!-- <div class="mt-5 flex bg-gray-200 rounded-2xl w-1/2 p-3 mx-auto">
+        <ul class="flex flex-col text-error space-y-1">
+            <li>Error 1</li>
+            <li>Error 2</li>          
+        </ul>
+    </div> -->
+
+</div>
