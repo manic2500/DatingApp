@@ -1,14 +1,27 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { ApplicationConfig, inject, provideAppInitializer, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { provideRouter, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideToastr, ToastNoAnimation } from 'ngx-toastr';
+import { InitService } from '../core/services/init-service';
+import { loadingInterceptor } from '../core/interceptors/loading-interceptor';
+//import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideRouter(routes),
-    provideHttpClient(),
+    provideRouter(routes, withViewTransitions()),
+    provideHttpClient(
+      withInterceptors([loadingInterceptor])
+    ),
+    //provideAnimations(), // required animations providers   
+    provideToastr({ toastComponent: ToastNoAnimation }), // Toastr providers
+    provideAppInitializer(() => {
+      const initService = inject(InitService);
+      initService.initApp();
+    })
   ]
+
 };

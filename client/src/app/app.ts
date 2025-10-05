@@ -1,35 +1,40 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
+import { Component, inject, signal } from '@angular/core';
 import { Nav } from "../layout/nav/nav";
-import { AccountService } from '../core/services/account-service';
-import { Home } from "../features/home/home";
-import { User } from '../types/user';
+import { Router, RouterOutlet } from '@angular/router';
+import { ToastNoAnimationModule } from 'ngx-toastr';
+import { LoadingService } from '../core/services/loading-service';
+
 
 @Component({
   selector: 'app-root',
-  imports: [Nav, Home],
+  imports: [Nav, RouterOutlet, ToastNoAnimationModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App implements OnInit {
-  private accountService = inject(AccountService);
-  private httpClient = inject(HttpClient);
-  protected readonly title = signal('Dating App');
-  protected members = signal<User[]>([]);
+export class App {
+  private loadingService = inject(LoadingService);
+  loading = this.loadingService.loading;
 
-  async ngOnInit() {
-    this.setCurrentUser()
+  protected router = inject(Router)
+
+  protected readonly title = signal('Dating App');
+
+
+  protected get containerClasses() {
+    return this.router.url !== '/' ? 'mt-24 container mx-auto' : '';
+  }
+
+
+}
+
+/* 
+
+async ngOnInit() {
+    //this.setCurrentUser()
     this.members.set(await this.getMembers() as User[])
   }
 
-  setCurrentUser() {
-    const userString = localStorage.getItem('user');
-    if (!userString) return;
-    const user = JSON.parse(userString);
-    this.accountService.currentUser.set(user);
-  }
-
+  
   async getMembers() {
     try {
       return lastValueFrom(this.httpClient.get('https://localhost:5001/api/members'));
@@ -39,5 +44,4 @@ export class App implements OnInit {
     }
 
   }
-}
-
+*/

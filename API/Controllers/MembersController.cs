@@ -11,6 +11,7 @@ public class MembersController(AppDbContext dbContext) : BaseApiController
     [HttpGet]
     public async Task<ActionResult<IReadOnlyList<AppUser>>> GetMembers()
     {
+        await Task.Delay(3000);
         return await dbContext.Users.ToListAsync();
     }
 

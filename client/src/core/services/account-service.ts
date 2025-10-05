@@ -2,13 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { LoginCreds, RegisterCreds, User } from '../../types/user';
 import { tap } from 'rxjs';
+import { BaseApiService } from './base-service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AccountService {
-  private http = inject(HttpClient);
-  baseUrl = 'https://localhost:5001/api';
+export class AccountService extends BaseApiService {
+  constructor(private http: HttpClient, toastr: ToastrService) {
+    super(toastr);
+  }
+
   currentUser = signal<User | null>(null);
 
   login(creds: LoginCreds) {
@@ -33,5 +37,11 @@ export class AccountService {
       localStorage.setItem('user', JSON.stringify(user))
       this.currentUser.set(user);
     }
+  }
+  public setCurrentUserFromStorage() {
+    const userString = localStorage.getItem('user');
+    if (!userString) return;
+    const user = JSON.parse(userString);
+    this.currentUser.set(user);
   }
 }
