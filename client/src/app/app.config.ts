@@ -6,6 +6,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideToastr, ToastNoAnimation } from 'ngx-toastr';
 import { InitService } from '../core/services/init-service';
 import { loadingInterceptor } from '../core/interceptors/loading-interceptor';
+import { errorInterceptor } from '../core/interceptors/error-interceptor';
 //import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
@@ -14,7 +15,7 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes, withViewTransitions()),
     provideHttpClient(
-      withInterceptors([loadingInterceptor])
+      withInterceptors([loadingInterceptor, errorInterceptor])
     ),
     //provideAnimations(), // required animations providers   
     provideToastr({ toastComponent: ToastNoAnimation }), // Toastr providers

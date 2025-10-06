@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ApiError } from '../../../types/error';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-server-error',
@@ -10,12 +10,12 @@ import { Router } from '@angular/router';
 })
 export class ServerError {
   protected error?: ApiError;
-  private router = inject(Router);
   protected showDetails = false;
 
   constructor() {
-    const navigation = this.router.getCurrentNavigation();
-    this.error = navigation?.extras?.state?.['error']
+    //const navigation = this.router.getCurrentNavigation();
+    //this.error = navigation?.extras?.state?.['error']  
+    this.error = history.state?.error
   }
 
   detailsToggle() {

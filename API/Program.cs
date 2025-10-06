@@ -1,6 +1,7 @@
 using API.Data;
 using API.Extensions;
 using API.Interfaces;
+using API.Middlewares;
 using API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,9 @@ builder.Services
 });
 
 var app = builder.Build();
+
+//app.UseDeveloperExceptionPage(); // By default, it is enabled
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseCors(opt => opt.WithOrigins("https://localhost:4200").AllowAnyHeader().AllowAnyMethod());
 

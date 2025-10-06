@@ -25,6 +25,10 @@ export const routes: Routes = [
             },
             {
                 path: 'errors',
+                loadComponent: () => import('../features/test-errors/test-errors').then(m => m.TestErrors),
+            },
+            {
+                path: 'server-error',
                 loadComponent: () => import('../shared/errors/server-error/server-error').then(m => m.ServerError),
             },
         ]
